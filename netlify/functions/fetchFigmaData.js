@@ -3,7 +3,7 @@ require('dotenv').config();
 
 exports.handler = async (event, context) => {
   const figmaToken = process.env.FIGMA_ACCESS_TOKEN;
-  cconst figmaFileId = process.env.FIGMA_FILE_ID; 
+  const figmaFileId = process.env.FIGMA_FILE_ID; 
 
   // Dynamic import of node-fetch as an ES module
   const fetch = (await import('node-fetch')).default;
