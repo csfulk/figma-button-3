@@ -28,6 +28,11 @@ function rgbaToCss(rgba) {
         div.style.height = '80px';
         div.style.margin = '5px';
         div.title = `Color (RGBA): ${cssColor}, Color (Hex): ${hexColor}`;
+        
+        // Append text containing the data to the div
+        const text = document.createTextNode(`Layer Names: ${item.layerNames.join(', ')}, Color (RGBA): ${cssColor}, Color (Hex): ${hexColor}`);
+        div.appendChild(text);
+        
         dataContainer.appendChild(div);
       });
     })
