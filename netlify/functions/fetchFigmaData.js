@@ -30,29 +30,13 @@ exports.handler = async (event, context) => {
     }
 
     const styles = fileData.styles;
+    console.log("Styles found in the file:", styles);
 
-    // Extract color values from styles
-    const colors = {};
-    for (const styleId of Object.keys(styles)) {
-      const style = styles[styleId];
-      if (style.type === 'FILL') {
-        const color = {
-          r: style.color.r,
-          g: style.color.g,
-          b: style.color.b,
-          a: style.color.a
-        };
-        colors[styleId] = color;
-      }
-    }
-
-    console.log("Colors found in the file:", colors);
-
-    // Here you can process the colors as needed
+    // Here you can process the styles as needed
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: "Colors fetched successfully", colors })
+      body: JSON.stringify({ message: "Styles fetched successfully", styles })
     };
   } catch (error) {
     console.error("Error:", error.message);
