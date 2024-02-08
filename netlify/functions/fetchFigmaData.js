@@ -30,26 +30,13 @@ exports.handler = async (event, context) => {
     }
 
     const styles = fileData.styles;
+    console.log("Styles found in the file:", styles);
 
-    // Extract RGBA color values from styles
-    const styleColors = {};
-    for (const [styleId, style] of Object.entries(styles)) {
-      if (style.type === 'FILL') {
-        const rgbaColor = {
-          r: style.color.r,
-          g: style.color.g,
-          b: style.color.b,
-          a: style.color.a
-        };
-        styleColors[style.name] = rgbaColor;
-      }
-    }
-
-    console.log("RGBA color values extracted from styles:", styleColors);
+    // Here you can process the styles as needed
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: "RGBA color values extracted successfully", styleColors })
+      body: JSON.stringify({ message: "Styles fetched successfully", styles })
     };
   } catch (error) {
     console.error("Error:", error.message);
