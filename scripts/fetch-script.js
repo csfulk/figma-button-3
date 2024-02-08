@@ -19,10 +19,10 @@ fetch('/.netlify/functions/fetchFigmaData')
     .then(data => {
         // Parse and display the data
         const dataContainer = document.getElementById('dataContainer');
-        data.nodes.forEach(item => {
-            const divContainer = document.createElement('div');
-            divContainer.classList.add('color-box-container'); // Add class for container
+        const container = document.createElement('div'); // Create container
+        container.classList.add('color-box-container'); // Add class for container
 
+        data.nodes.forEach(item => {
             const div = document.createElement('div');
             const cssColor = rgbaToCss(item.fills[0].color);
             const hexColor = rgbaToHex(item.fills[0].color);
@@ -34,8 +34,9 @@ fetch('/.netlify/functions/fetchFigmaData')
             const text = document.createTextNode(`Layer Names: ${item.layerNames.join(', ')}, Color (RGBA): ${cssColor}, Color (Hex): ${hexColor}`);
             div.appendChild(text);
 
-            divContainer.appendChild(div); // Append color-box div to container
-            dataContainer.appendChild(divContainer); // Append container to data container
+            container.appendChild(div); // Append color-box div to container
         });
+
+        dataContainer.appendChild(container); // Append container to data container
     })
     .catch(error => console.error('Error fetching data:', error));
