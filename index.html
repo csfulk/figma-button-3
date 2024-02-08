@@ -8,20 +8,7 @@
 <body>
   <div id="dataContainer"></div>
 
-  <script>
-    // Fetch data from the serverless function
-    fetch('https://raw.githubusercontent.com/csfulk/figma-button-3/main/netlify/functions/fetchFigmaData.js')
-      .then(response => response.json())
-      .then(data => {
-        // Parse and display the data
-        const dataContainer = document.getElementById('dataContainer');
-        data.forEach(item => {
-          const paragraph = document.createElement('p');
-          paragraph.textContent = `ID: ${item.id}, Layer Names: ${item.layerNames.join(', ')}, Color: rgba(${item.fills[0].color.r * 1}, ${item.fills[0].color.g * 1}, ${item.fills[0].color.b * 1}, ${item.fills[0].color.a})`;
-          dataContainer.appendChild(paragraph);
-        });
-      })
-      .catch(error => console.error('Error fetching data:', error));
-  </script>
+  <!-- Link to external JavaScript file -->
+  <script src="scripts/fetch-script.js"></script>
 </body>
 </html>
