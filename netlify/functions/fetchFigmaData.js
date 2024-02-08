@@ -60,8 +60,10 @@ function extractNodes(document) {
 }
 
 function extractNodesRecursive(node, nodes, layerNames) {
+  if (node.type === 'PAGE') {
+    layerNames.push(node.name); // Push the name of the page
+  }
   if (node.children) {
-    layerNames.push(node.name); // Push the current layer name
     node.children.forEach(child => {
       extractNodesRecursive(child, nodes, [...layerNames]); // Pass a copy of layerNames
     });
