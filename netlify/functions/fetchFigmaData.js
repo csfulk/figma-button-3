@@ -55,17 +55,19 @@ exports.handler = async (event, context) => {
 // Function to recursively extract nodes from the document
 function extractNodes(document) {
   const nodes = [];
-  extractNodesRecursive(document, nodes, []);
+  const pageName = document.name; // Get the name of the root page
+  extractNodesRecursive(document, nodes, [pageName]); // Pass the root page name
   return nodes;
 }
 
 function extractNodesRecursive(node, nodes, layerNames) {
-  if (node.type === 'PAGE') {
-    layerNames.push(node.name); // Push the name of the page
-  }
   if (node.children) {
     node.children.forEach(child => {
-      extractNodesRecursive(child, nodes, [...layerNames]); // Pass a copy of layerNames
+      const updatedLayerNames = [...layerNames]; // Create a copy of layerNames
+      if (child.type === 'PAGE') {
+        updatedLayerNames.push(child.name); // Push the name of the page
+      }
+      extractNodesRecursive(child, nodes, updatedLayerNames);
     });
   }
   if (node.fills) {
