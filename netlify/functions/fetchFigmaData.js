@@ -36,11 +36,11 @@ exports.handler = async (event, context) => {
     const nodes = extractNodes(fileData.document);
     console.log("Nodes found in the file:", nodes);
 
-    // Here you can process the styles, nodes, and layers as needed
+    // Here you can process the styles and nodes as needed
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: "Styles, nodes, and layers fetched successfully", styles, nodes })
+      body: JSON.stringify({ message: "Styles and nodes fetched successfully", styles, nodes })
     };
   } catch (error) {
     console.error("Error:", error.message);
@@ -55,19 +55,14 @@ exports.handler = async (event, context) => {
 // Function to recursively extract nodes from the document
 function extractNodes(document) {
   const nodes = [];
-  const pageName = document.name; // Get the name of the root page
-  extractNodesRecursive(document, nodes, [pageName]); // Pass the root page name
+  extractNodesRecursive(document, nodes);
   return nodes;
 }
 
-function extractNodesRecursive(node, nodes, layerNames) {
+function extractNodesRecursive(node, nodes) {
   if (node.children) {
     node.children.forEach(child => {
-      const updatedLayerNames = [...layerNames]; // Create a copy of layerNames
-      if (child.type === 'PAGE') {
-        updatedLayerNames.push(child.name); // Push the name of the page
-      }
-      extractNodesRecursive(child, nodes, updatedLayerNames);
+      extractNodesRecursive(child, nodes);
     });
   }
   if (node.fills) {
@@ -75,7 +70,6 @@ function extractNodesRecursive(node, nodes, layerNames) {
     if (fills.length > 0) {
       nodes.push({
         id: node.id,
-        layerNames: layerNames, // Add layer names to the node
         fills: fills.map(fill => ({
           color: fill.color
         }))
