@@ -31,32 +31,25 @@ exports.handler = async (event, context) => {
 
     const styles = fileData.styles;
 
-    // Extract color values from styles and create a new object with style information including RGBA color
-    const stylesWithColor = {};
-    for (const styleId of Object.keys(styles)) {
-      const style = styles[styleId];
+    // Extract RGBA color values from styles
+    const styleColors = {};
+    for (const [styleId, style] of Object.entries(styles)) {
       if (style.type === 'FILL') {
-        const color = {
+        const rgbaColor = {
           r: style.color.r,
           g: style.color.g,
           b: style.color.b,
           a: style.color.a
         };
-        stylesWithColor[styleId] = {
-          name: style.name,
-          styleType: style.styleType,
-          remote: style.remote,
-          description: style.description,
-          color: color // Include color information
-        };
+        styleColors[style.name] = rgbaColor;
       }
     }
 
-    console.log("Styles with RGBA color fetched successfully:", stylesWithColor);
+    console.log("RGBA color values extracted from styles:", styleColors);
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: "Styles with RGBA color fetched successfully", styles: stylesWithColor })
+      body: JSON.stringify({ message: "RGBA color values extracted successfully", styleColors })
     };
   } catch (error) {
     console.error("Error:", error.message);
