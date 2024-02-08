@@ -7,24 +7,17 @@ fetch('/.netlify/functions/fetchFigmaData')
     // Parse and display the data
     const dataContainer = document.getElementById('dataContainer');
     data.nodes.forEach(item => {
-      const divContainer = document.createElement('div');
-      divContainer.classList.add('color-box-container');
-
-      const divColor = document.createElement('div');
-      divColor.classList.add('color-box');
-      divColor.style.backgroundColor = rgbaToCss(item.fills[0].color);
-
-      const divInfo = document.createElement('div');
-      divInfo.classList.add('color-info');
-      divInfo.innerHTML = `
-        <p>Layer Names: ${item.layerNames.join(', ')}</p>
-        <p>Color (RGBA): ${rgbaToCss(item.fills[0].color)}</p>
-        <p>Color (Hex): ${rgbaToHex(item.fills[0].color)}</p>
-      `;
-
-      divContainer.appendChild(divColor);
-      divContainer.appendChild(divInfo);
-      dataContainer.appendChild(divContainer);
+      const div = document.createElement('div');
+      const cssColor = rgbaToCss(item.fills[0].color);
+      const hexColor = rgbaToHex(item.fills[0].color);
+      div.classList.add('color-box'); // Add class for styling
+      div.title = `Color (RGBA): ${cssColor}, Color (Hex): ${hexColor}`;
+      
+      // Append text containing the data to the div
+      const text = document.createTextNode(`Layer Names: ${item.layerNames.join(', ')}, Color (RGBA): ${cssColor}, Color (Hex): ${hexColor}`);
+      div.appendChild(text);
+      
+      dataContainer.appendChild(div);
     });
   })
   .catch(error => console.error('Error fetching data:', error));
