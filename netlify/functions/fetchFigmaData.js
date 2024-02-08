@@ -36,11 +36,15 @@ exports.handler = async (event, context) => {
     const nodes = extractNodes(fileData.document);
     console.log("Nodes found in the file:", nodes);
 
+    // Extract names of components on the "Tokens" page
+    const tokenComponentNames = extractTokenComponentNames(fileData.document);
+    console.log("Component names on the 'Tokens' page:", tokenComponentNames);
+
     // Here you can process the styles, nodes, and layers as needed
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: "Styles, nodes, and layers fetched successfully", styles, nodes })
+      body: JSON.stringify({ message: "Styles, nodes, and layers fetched successfully", styles, nodes, tokenComponentNames })
     };
   } catch (error) {
     console.error("Error:", error.message);
@@ -78,4 +82,19 @@ function extractNodesRecursive(node, nodes, layerNames) {
       });
     }
   }
+}
+
+// Function to extract names of components on the "Tokens" page
+function extractTokenComponentNames(document) {
+  const tokenComponentNames = [];
+  document.children.forEach(page => {
+    if (page.name === 'Tokens') {
+      page.children.forEach(node => {
+        if (node.type === 'COMPONENT') {
+          tokenComponentNames.push(node.name);
+        }
+      });
+    }
+  });
+  return tokenComponentNames;
 }
