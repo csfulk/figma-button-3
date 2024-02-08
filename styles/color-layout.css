@@ -1,0 +1,16 @@
+/* color-layout.css */
+
+.color-box-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px; /* Adjust spacing between each container */
+}
+
+.color-box {
+  width: 80px;
+  height: 80px;
+}
+
+.color-info {
+  margin-left: 10px; /* Adjust spacing between color box and text */
+}
