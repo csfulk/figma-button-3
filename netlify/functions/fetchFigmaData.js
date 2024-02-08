@@ -24,49 +24,23 @@ exports.handler = async (event, context) => {
 
     const fileData = await fileResponse.json();
 
-    // Check if document node exists
-    if (!fileData.document) {
-      throw new Error('Document node not found in the file data');
+    // Check if styles exist in the file data
+    if (!fileData.styles) {
+      throw new Error('No styles found in the file data');
     }
 
-    const documentNode = fileData.document;
+    const styles = fileData.styles;
+    console.log("Styles found in the file:", styles);
 
-    // Find the frame node titled "Color Palette"
-    let colorPaletteFrame = null;
-    if (documentNode.children) {
-      for (const childNode of documentNode.children) {
-        if (childNode.type === "CANVAS" && childNode.name === "Color Palette") {
-          colorPaletteFrame = childNode;
-          break;
-        }
-      }
-    }
+    // Fetch node information to extract color fill data
+    const nodes = extractNodes(fileData.document);
+    console.log("Nodes found in the file:", nodes);
 
-    if (!colorPaletteFrame) {
-      throw new Error('Frame node "Color Palette" not found');
-    }
-
-    // Extract style names and their respective fill colors
-    const stylesWithColors = {};
-    for (const childNode of colorPaletteFrame.children) {
-      if (childNode.type === "RECTANGLE" && childNode.fills) {
-        const styleName = childNode.name;
-        const fillColor = childNode.fills[0].color;
-        const rgbaColor = {
-          r: fillColor.r,
-          g: fillColor.g,
-          b: fillColor.b,
-          a: fillColor.a
-        };
-        stylesWithColors[styleName] = rgbaColor;
-      }
-    }
-
-    console.log("Style names and their respective fill colors:", stylesWithColors);
+    // Here you can process the styles and nodes as needed
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: "Style names and their respective fill colors extracted successfully", stylesWithColors })
+      body: JSON.stringify({ message: "Styles and nodes fetched successfully", styles, nodes })
     };
   } catch (error) {
     console.error("Error:", error.message);
@@ -77,3 +51,29 @@ exports.handler = async (event, context) => {
     };
   }
 };
+
+// Function to recursively extract nodes from the document
+function extractNodes(document) {
+  const nodes = [];
+  extractNodesRecursive(document, nodes);
+  return nodes;
+}
+
+function extractNodesRecursive(node, nodes) {
+  if (node.children) {
+    node.children.forEach(child => {
+      extractNodesRecursive(child, nodes);
+    });
+  }
+  if (node.fills) {
+    const fills = node.fills.filter(fill => fill.type === 'SOLID');
+    if (fills.length > 0) {
+      nodes.push({
+        id: node.id,
+        fills: fills.map(fill => ({
+          color: fill.color
+        }))
+      });
+    }
+  }
+}
