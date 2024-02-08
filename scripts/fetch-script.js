@@ -20,11 +20,15 @@ function rgbaToCss(rgba) {
       // Parse and display the data
       const dataContainer = document.getElementById('dataContainer');
       data.nodes.forEach(item => {
-        const paragraph = document.createElement('p');
+        const div = document.createElement('div');
         const cssColor = rgbaToCss(item.fills[0].color);
         const hexColor = rgbaToHex(item.fills[0].color);
-        paragraph.textContent = `ID: ${item.id}, Layer Names: ${item.layerNames.join(', ')}, Color (RGBA): ${cssColor}, Color (Hex): ${hexColor}`;
-        dataContainer.appendChild(paragraph);
+        div.style.backgroundColor = cssColor;
+        div.style.width = '80px';
+        div.style.height = '80px';
+        div.style.margin = '5px';
+        div.title = `Color (RGBA): ${cssColor}, Color (Hex): ${hexColor}`;
+        dataContainer.appendChild(div);
       });
     })
     .catch(error => console.error('Error fetching data:', error));
