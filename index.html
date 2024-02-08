@@ -10,7 +10,7 @@
 
   <script>
     // Fetch data from the serverless function
-    fetch('/.netlify/functions/fetchFigmaData')
+    fetch('https://raw.githubusercontent.com/csfulk/figma-button-3/main/netlify/functions/fetchFigmaData.js')
       .then(response => response.json())
       .then(data => {
         // Parse and display the data
