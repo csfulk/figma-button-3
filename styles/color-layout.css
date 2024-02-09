@@ -7,6 +7,8 @@ body {
   display: block;
   margin: 0 auto; /* Center the button */
   width: 960px; /* Set width */
+  height: 400px; /* Set height */
+  overflow:hidden; /* Hide overflow */
   margin-bottom: 60px; /* Adjust spacing between button and color container */
 }
 
