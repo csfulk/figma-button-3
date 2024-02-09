@@ -34,7 +34,7 @@ fetch('/.netlify/functions/fetchFigmaData')
 
             const details = document.createElement('div'); // Create color-swatch-details div
             details.classList.add('color-swatch-details'); // Add class for details styling
-            details.textContent = `Layer Names: ${item.layerNames.join(', ')}`;
+            details.textContent = `Layer Names: ${item.layerNames.join(', ')}, Color (RGBA): ${cssColor}, Color (Hex): ${rgbaToHex(item.fills[0].color)}`;
 
             boxContainer.appendChild(swatch); // Append swatch to box container
             boxContainer.appendChild(details); // Append details to box container
