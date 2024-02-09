@@ -6,8 +6,18 @@
   width: 960px; /* Set width */
   margin-bottom: 60px; /* Adjust spacing between button and color container */
 }
-.color-container {
+
+.dataContainer {
   display: block;
+
+  align-items: center;
+  margin-bottom: 20px; /* Adjust spacing between each container */
+}
+
+.color-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 48px; /* Adjust spacing between each container */;
   margin: 0 auto; /* Center the container */
   margin-bottom: 10px; /* Adjust spacing between each container */
   width: 960px; /* Set minimum width */
@@ -16,8 +26,8 @@
 
 .color-section {
   display: flex; /* Make sections run horizontally */
+  flex-wrap: wrap; /* Allow sections to wrap to the next line */
   flex-direction: column; /* Stack items vertically within each section */
-  margin-right: 20px; /* Adjust spacing between sections */
 }
 
 .section-label {
@@ -30,17 +40,17 @@
 .section-container {
   margin-bottom: 20px; /* Adjust spacing between each section */
   display:flex;
-  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .color-box-container {
-  margin-bottom: 10px; /* Adjust spacing between each box */
-  margin-right: 36px; /* Adjust spacing between each color box */
+  margin-bottom: 48px; /* Adjust spacing between each box */
+  margin-right:48px; /* Adjust spacing between each color box */
 }
 
 .color-swatch {
-  width: 96px;
-  height: 96px;
+  width: 144px;
+  height: 144px;
   border-radius: 8px;
 }
 
