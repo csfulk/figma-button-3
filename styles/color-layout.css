@@ -1,16 +1,53 @@
 /* color-layout.css */
 
+.figma-button-container {
+  display: block;
+  margin: 0 auto; /* Center the button */
+  width: 960px; /* Set width */
+  margin-bottom: 60px; /* Adjust spacing between button and color container */
+}
 .color-container {
-  display: flex;
-  align-items: center;
+  display: block;
+  margin: 0 auto; /* Center the container */
   margin-bottom: 10px; /* Adjust spacing between each container */
+  width: 960px; /* Set minimum width */
+
+}
+
+.color-section {
+  display: flex; /* Make sections run horizontally */
+  flex-direction: column; /* Stack items vertically within each section */
+  margin-right: 20px; /* Adjust spacing between sections */
+}
+
+.section-label {
+  margin-bottom: 8px; /* Adjust spacing between each section label */
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.section-container {
+  margin-bottom: 20px; /* Adjust spacing between each section */
+  display:flex;
+  flex-direction: row;
+}
+
+.color-box-container {
+  margin-bottom: 10px; /* Adjust spacing between each box */
+  margin-right: 36px; /* Adjust spacing between each color box */
 }
 
 .color-swatch {
-  width: 80px;
-  height: 80px;
+  width: 96px;
+  height: 96px;
+  border-radius: 8px;
 }
 
-.color-info {
-  margin-left: 10px; /* Adjust spacing between color box and text */
+.detail-label {
+  margin: 8px 0; /* Adjust spacing between color box and text */
+  margin-bottom: 10px; /* Adjust spacing between each section label */
+  font-family: 'helvetica', sans-serif;
+  font-weight: normal;
+  font-size: 14px;
 }
