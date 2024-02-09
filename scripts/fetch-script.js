@@ -64,6 +64,17 @@ fetch('/.netlify/functions/fetchFigmaData')
                 details.appendChild(detailLabel);
             });
 
+            // Add detail-label divs for CSS RGBA value and Hex value
+            const cssLabel = document.createElement('div');
+            cssLabel.classList.add('detail-label');
+            cssLabel.textContent = `Color (RGBA): ${cssColor}`;
+            details.appendChild(cssLabel);
+
+            const hexLabel = document.createElement('div');
+            hexLabel.classList.add('detail-label');
+            hexLabel.textContent = `Color (Hex): ${rgbaToHex(item.fills[0].color)}`;
+            details.appendChild(hexLabel);
+
             boxContainer.appendChild(swatch); // Append swatch to box container
             boxContainer.appendChild(details); // Append details to box container
 
