@@ -13,7 +13,7 @@ function rgbaToHex(rgba) {
 
 // Function to combine layer names based on specific keywords
 function combineLayerNames(layerNames) {
-    if (layerNames.includes("Mode")) {
+    if (layerNames.includes("mode")) {
         const lastIndex = layerNames.length - 1;
         return `${layerNames[lastIndex - 1]}-${layerNames[lastIndex]}`;
     } else if (layerNames.includes("interface")) {
