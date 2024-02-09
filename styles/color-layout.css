@@ -1,12 +1,12 @@
 /* color-layout.css */
 
-.color-box-container {
+.color-container {
   display: flex;
   align-items: center;
   margin-bottom: 10px; /* Adjust spacing between each container */
 }
 
-.color-box {
+.color-swatch {
   width: 80px;
   height: 80px;
 }

@@ -20,13 +20,13 @@ fetch('/.netlify/functions/fetchFigmaData')
         // Parse and display the data
         const dataContainer = document.getElementById('dataContainer');
         const container = document.createElement('div'); // Create container
-        container.classList.add('color-box-container'); // Add class for container
+        container.classList.add('color-container'); // Add class for container
 
         data.nodes.forEach(item => {
             const div = document.createElement('div');
             const cssColor = rgbaToCss(item.fills[0].color);
             const hexColor = rgbaToHex(item.fills[0].color);
-            div.classList.add('color-box'); // Add class for styling
+            div.classList.add('color-swatch'); // Add class for styling
             div.style.backgroundColor = cssColor;
             div.title = `Color (RGBA): ${cssColor}, Color (Hex): ${hexColor}`;
 
@@ -34,7 +34,7 @@ fetch('/.netlify/functions/fetchFigmaData')
             const text = document.createTextNode(`Layer Names: ${item.layerNames.join(', ')}, Color (RGBA): ${cssColor}, Color (Hex): ${hexColor}`);
             div.appendChild(text);
 
-            container.appendChild(div); // Append color-box div to container
+            container.appendChild(div); // Append color-swatch div to container
         });
 
         dataContainer.appendChild(container); // Append container to data container
