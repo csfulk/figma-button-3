@@ -13,7 +13,7 @@ function rgbaToHex(rgba) {
 
 // Function to combine layer names based on specific keywords
 function combineLayerNames(layerNames) {
-    if (layerNames.includes("mode")) {
+    if (layerNames.includes("Mode")) {
         const lastIndex = layerNames.length - 1;
         return `${layerNames[lastIndex - 1]}-${layerNames[lastIndex]}`;
     } else if (layerNames.includes("interface")) {
@@ -23,6 +23,11 @@ function combineLayerNames(layerNames) {
     } else {
         return layerNames.join('-');
     }
+}
+
+// Function to remove specified words from a string
+function removeWords(str) {
+    return str.replace(/Layer Names:|Color \(RGBA\):|Color \(Hex\):/g, '').trim();
 }
 
 // Fetch data from the serverless function
@@ -48,7 +53,8 @@ fetch('/.netlify/functions/fetchFigmaData')
             details.classList.add('color-swatch-details'); // Add class for details styling
             
             const combinedLayerNames = combineLayerNames(item.layerNames);
-            details.textContent = `Layer Names: ${combinedLayerNames}, Color (RGBA): ${cssColor}, Color (Hex): ${rgbaToHex(item.fills[0].color)}`;
+            const cleanedDetails = removeWords(`Layer Names: ${combinedLayerNames}, Color (RGBA): ${cssColor}, Color (Hex): ${rgbaToHex(item.fills[0].color)}`);
+            details.textContent = cleanedDetails;
 
             boxContainer.appendChild(swatch); // Append swatch to box container
             boxContainer.appendChild(details); // Append details to box container
