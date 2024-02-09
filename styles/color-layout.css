@@ -3,7 +3,7 @@
 body {
   background-color: #1e1e1e;
 }
-.figma-button-container {
+.figma-ui-container {
   display: block;
   margin: 0 auto; /* Center the button */
   width: 960px; /* Set width */
