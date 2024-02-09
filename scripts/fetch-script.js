@@ -14,7 +14,8 @@ function rgbaToHex(rgba) {
 // Function to combine layer names based on specific keywords
 function combineLayerNames(layerNames) {
     if (layerNames.includes("Mode")) {
-        return layerNames.slice(3).join('-');
+        const lastIndex = layerNames.length - 1;
+        return `${layerNames[lastIndex - 1]}-${layerNames[lastIndex]}`;
     } else if (layerNames.includes("interface")) {
         return layerNames.slice(3).join('-');
     } else if (layerNames.includes("editorial")) {
@@ -45,6 +46,7 @@ fetch('/.netlify/functions/fetchFigmaData')
 
             const details = document.createElement('div'); // Create color-swatch-details div
             details.classList.add('color-swatch-details'); // Add class for details styling
+            
             const combinedLayerNames = combineLayerNames(item.layerNames);
             details.textContent = `Layer Names: ${combinedLayerNames}, Color (RGBA): ${cssColor}, Color (Hex): ${rgbaToHex(item.fills[0].color)}`;
 
