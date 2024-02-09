@@ -1,5 +1,3 @@
-// fetch-script.js
-
 // Function to convert RGBA color to CSS RGBA format
 function rgbaToCss(rgba) {
     return `rgba(${Math.round(rgba.r * 255)}, ${Math.round(rgba.g * 255)}, ${Math.round(rgba.b * 255)}, ${rgba.a})`;
@@ -13,35 +11,44 @@ function rgbaToHex(rgba) {
     return `#${r}${g}${b}`;
 }
 
+// Function to combine layer names based on specific keywords
+function combineLayerNames(layerNames) {
+    for (let i = 0; i < layerNames.length - 1; i++) {
+        if (layerNames[i].toLowerCase() === "mode" || layerNames[i].toLowerCase() === "interface") {
+            return layerNames.slice(i + 2).join('-');
+        }
+        if (layerNames[i].toLowerCase() === "editorial") {
+            return layerNames.slice(i + 1).join('-');
+        }
+    }
+    return layerNames[layerNames.length - 1];
+}
+
 // Fetch data from the serverless function
 fetch('/.netlify/functions/fetchFigmaData')
     .then(response => response.json())
     .then(data => {
         // Parse and display the data
         const dataContainer = document.getElementById('dataContainer');
-        const container = document.createElement('div'); // Create color-container div
+        const container = document.createElement('div'); // Create container
         container.classList.add('color-container'); // Add class for container
 
         data.nodes.forEach(item => {
-            const boxContainer = document.createElement('div'); // Create color-box-container div
-            boxContainer.classList.add('color-box-container'); // Add class for box container
-
-            const swatch = document.createElement('div'); // Create color-swatch div
+            const div = document.createElement('div');
             const cssColor = rgbaToCss(item.fills[0].color);
-            swatch.classList.add('color-swatch'); // Add class for swatch styling
-            swatch.style.backgroundColor = cssColor;
-            swatch.title = `Color (RGBA): ${cssColor}, Color (Hex): ${rgbaToHex(item.fills[0].color)}`;
+            const hexColor = rgbaToHex(item.fills[0].color);
+            const combinedLayerNames = combineLayerNames(item.layerNames);
+            div.classList.add('color-swatch'); // Add class for styling
+            div.style.backgroundColor = cssColor;
+            div.title = `Color (RGBA): ${cssColor}, Color (Hex): ${hexColor}`;
 
-            const details = document.createElement('div'); // Create color-swatch-details div
-            details.classList.add('color-swatch-details'); // Add class for details styling
-            details.textContent = `Layer Names: ${item.layerNames.join(', ')}, Color (RGBA): ${cssColor}, Color (Hex): ${rgbaToHex(item.fills[0].color)}`;
+            // Append text containing the data to the div
+            const text = document.createTextNode(`Layer Names: ${combinedLayerNames}, Color (RGBA): ${cssColor}, Color (Hex): ${hexColor}`);
+            div.appendChild(text);
 
-            boxContainer.appendChild(swatch); // Append swatch to box container
-            boxContainer.appendChild(details); // Append details to box container
-
-            container.appendChild(boxContainer); // Append box container to color container
+            container.appendChild(div); // Append color-swatch div to container
         });
 
-        dataContainer.appendChild(container); // Append color container to data container
+        dataContainer.appendChild(container); // Append container to data container
     })
     .catch(error => console.error('Error fetching data:', error));
