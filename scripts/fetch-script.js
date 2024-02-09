@@ -54,15 +54,7 @@ fetch('/.netlify/functions/fetchFigmaData')
             
             const combinedLayerNames = combineLayerNames(item.layerNames);
             const cleanedDetails = removeWords(`Layer Names: ${combinedLayerNames}, Color (RGBA): ${cssColor}, Color (Hex): ${rgbaToHex(item.fills[0].color)}`);
-            
-            // Split combined layer names and wrap each in a detail-label div
-            const layerNames = combinedLayerNames.split('-');
-            layerNames.forEach(name => {
-                const detailLabel = document.createElement('div');
-                detailLabel.classList.add('detail-label');
-                detailLabel.textContent = name;
-                details.appendChild(detailLabel);
-            });
+            details.textContent = cleanedDetails;
 
             boxContainer.appendChild(swatch); // Append swatch to box container
             boxContainer.appendChild(details); // Append details to box container
