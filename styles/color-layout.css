@@ -1,5 +1,8 @@
 /* color-layout.css */
 
+body {
+  background-color: 1e1e1e;
+}
 .figma-button-container {
   display: block;
   margin: 0 auto; /* Center the button */
@@ -35,6 +38,7 @@
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
   font-size: 18px;
+  color: #ffffff;
 }
 
 .section-container {
@@ -60,4 +64,5 @@
   font-family: 'helvetica', sans-serif;
   font-weight: normal;
   font-size: 14px;
+  color: #ffffff;
 }
