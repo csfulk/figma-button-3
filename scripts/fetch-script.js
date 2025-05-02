@@ -43,11 +43,16 @@ fetch('/.netlify/functions/fetchFigmaData')
 
         data.nodes.forEach(item => {
             const section = item.layerNames[2]; // Get the third layer name as section
-            
+
+            // Skip nodes inside the "UI Example" frame
+            if (section === "UI Example") {
+                return;
+            }
+
             if (!groupNodesBySection[section]) {
                 groupNodesBySection[section] = [];
             }
-            
+
             groupNodesBySection[section].push(item);
         });
 
