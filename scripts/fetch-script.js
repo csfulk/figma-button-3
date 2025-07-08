@@ -43,15 +43,14 @@ fetch('/.netlify/functions/fetchFigmaData')
 
         data.nodes.forEach(item => {
             const section = item.layerNames[2]; // Get the third layer name as section
-            const pageName = item.layerNames[0]; // Get the first layer name as page name
 
             // Skip nodes inside the "UI Example" frame
             if (section === "UI Example") {
                 return;
             }
 
-            // Skip nodes from the 'Instructions' page
-            if (pageName === "Instructions") {
+            // Skip nodes from the 'instruction_text' layer or any frame containing "instruction_text"
+            if (section === "instruction_text" || item.layerNames.includes("instruction_text")) {
                 return;
             }
 
