@@ -54,6 +54,11 @@ fetch('/.netlify/functions/fetchFigmaData')
                 return;
             }
 
+            // Skip nodes where section is undefined
+            if (section === undefined || section === null) {
+                return;
+            }
+
             if (!groupNodesBySection[section]) {
                 groupNodesBySection[section] = [];
             }
